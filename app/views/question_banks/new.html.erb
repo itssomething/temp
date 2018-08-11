@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <%= form_for @question_bank do |f| %>
+      <%= f.label :name, t(".name"), class: "field-label" %>
+      <%= f.text_field :name, class: "form-control field-input" %>
+
+      <%= f.label :category, t(".category"), class: "field-label" %>
+
+      <h5>Add questions</h5>
+
+      <div class = "question_fields">
+        <%= f.fields_for :questions do |ff| %>
+          <%= ff.label :content, t(".content_question"), class: "field-label question-label" %>
+          <%= ff.text_field :content, class: "form-control field-input" %>
+
+          <div>
+            <%= ff.label :multi_correct, t(".multi"), class: "field-label" %>
+            <%= ff.check_box :multi_correct, input_html: {checked: ff.object.yes!} %>
+          </div>
+
+          <%= ff.fields_for :answers do |fff| %>
+            <div class="answer-field">
+              <%= fff.label :content, t(".content_answer"), class: "field-label answer-label" %>
+              <%= fff.text_field :content, class: "form-control field-input" %>
+              <%= fff.label :correctness, t(".correct"), class: "field-label" %>
+              <%= fff.check_box :correctness, input_html: {checked: ff.object.yes!} %>
+            </div>
+          <% end %>
+
+        <% end %>
+      </div>
+
+      <%= f.submit t(".submit"), class: "btn btn-primary submit-button" %>
+    <% end %>
+  </div>
+<div>
